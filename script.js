@@ -5,6 +5,9 @@ answer,
 operator;
 let numbers=document.querySelectorAll('.numbers');
 let theScreen=document.querySelector('#screen');
+let point=document.querySelector('#point');
+let backSpace=document.querySelector('#backSpace');
+let percentage=document.querySelector('#percentage');
 function add(){
     return answer=input1+input2;
 };
@@ -31,6 +34,7 @@ operators.forEach((op)=>{
         input='';
         theScreen.textContent=e.target.textContent;
         operator=e.target.textContent;
+        point.removeAttribute('disabled');
         return operator,input1,input;
     });
 });
@@ -57,9 +61,29 @@ equalSign.addEventListener('click',(e)=>{
         input=answer.toString();
         theScreen.textContent=`${input}`;
     }
+    point.removeAttribute('disabled');
 })
 let clear=document.querySelector('#Clear')
 clear.addEventListener('click',()=>{
     input='';
     theScreen.textContent='';
 });
+point.addEventListener('click',()=>{
+    input=`${input}.`
+    theScreen.textContent=`${input}`
+    point.setAttribute('disabled','disabled')
+})
+backSpace.addEventListener('click',()=>{
+    input=input.toString();
+    input=input.split('');
+    input.pop();
+    input=input.join('');
+    theScreen.textContent=`${input}`
+})
+percentage.addEventListener('click',()=>{
+    input=Number(input)/100
+    theScreen.textContent=`${input}`
+})
+if(answer===NaN){
+    theScreen.textContent=`Syntax Error`
+}
